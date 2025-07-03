@@ -40,4 +40,18 @@ public class InventoryController {
     public ResponseEntity<InventoryEntity> createInventory(@RequestBody InventoryEntity inventory) {
         return ResponseEntity.ok(inventoryService.createInventory(inventory));
     }
+
+    @PutMapping("/adjust/{productName}")
+    public ResponseEntity<InventoryEntity> adjustInventoryQuantity(
+            @PathVariable String productName,
+            @RequestParam int quantity,
+            @RequestParam String type,
+            @RequestParam UUID storeId // You must send this from frontend!
+    ) {
+        InventoryEntity updated = inventoryService.adjustQuantity(productName, quantity, type, storeId);
+        return ResponseEntity.ok(updated);
+    }
+
+
+
 } 
