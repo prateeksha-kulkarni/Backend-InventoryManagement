@@ -1,5 +1,6 @@
 package com.storeInventory.inventory_management.auth.controller;
 
+import com.storeInventory.inventory_management.auth.dto.request.AdjustmentRequest;
 import com.storeInventory.inventory_management.auth.model.InventoryEntity;
 import com.storeInventory.inventory_management.auth.service.InventoryService;
 import com.storeInventory.inventory_management.auth.dto.InventoryResponseDto;
@@ -42,16 +43,19 @@ public class InventoryController {
     }
 
     @PutMapping("/adjust/{productName}")
-    public ResponseEntity<InventoryEntity> adjustInventoryQuantity(
-            @PathVariable String productName,
-            @RequestParam int quantity,
-            @RequestParam String type,
-            @RequestParam UUID storeId // You must send this from frontend!
-    ) {
-        InventoryEntity updated = inventoryService.adjustQuantity(productName, quantity, type, storeId);
-        return ResponseEntity.ok(updated);
+    public ResponseEntity<InventoryResponseDto> adjustQuantity(
+            @RequestBody AdjustmentRequest request,
+            @PathVariable String productName) {
+
+        InventoryEntity updated = inventoryService.adjustQuantity(
+                productName,
+                request.getQuantity(),
+                request.getType(),
+                request.getStoreId(),
+                request.getUserId(),
+                request.getReason()
+        );
+
+        return ResponseEntity.ok(InventoryResponseDto.fromEntity(updated));
     }
-
-
-
 } 
