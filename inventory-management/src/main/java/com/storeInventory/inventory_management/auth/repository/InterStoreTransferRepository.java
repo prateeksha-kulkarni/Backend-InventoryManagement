@@ -5,6 +5,7 @@ import com.storeInventory.inventory_management.auth.model.Enum.TransferStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,4 +14,7 @@ public interface InterStoreTransferRepository extends JpaRepository<InterStoreTr
     List<InterStoreTransferEntity> findByToStore_StoreIdAndStatus(UUID toStoreId, TransferStatus status);
     List<InterStoreTransferEntity> findByFromStore_StoreId(UUID fromStoreId);
     List<InterStoreTransferEntity> findByToStore_StoreId(UUID toStoreId);
+    List<InterStoreTransferEntity> findByStatusAndTimestampBetween(
+            TransferStatus status, LocalDateTime start, LocalDateTime end);
+
 } 
