@@ -1,6 +1,10 @@
 package com.storeInventory.inventory_management.auth.dto;
 
+import com.storeInventory.inventory_management.auth.model.Enum.ProductCategory;
+import com.storeInventory.inventory_management.auth.model.Enum.ProductStatus;
 import com.storeInventory.inventory_management.auth.model.InventoryEntity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -13,6 +17,10 @@ public class InventoryResponseDto {
     private ProductInfo product;
     private Integer quantity;
     private Integer minThreshold;
+
+    @Enumerated(EnumType.STRING)
+    private ProductStatus status;
+
     private LocalDateTime updatedAt;
 
     @Data
@@ -27,7 +35,7 @@ public class InventoryResponseDto {
         private UUID productId;
         private String name;
         private String sku;
-        private String category;
+        private ProductCategory category;
     }
 
     public static InventoryResponseDto fromEntity(InventoryEntity entity) {
@@ -52,6 +60,13 @@ public class InventoryResponseDto {
         productInfo.setCategory(entity.getProduct().getCategory());
         dto.setProduct(productInfo);
 
+        // Add stock status logic
+        int quantity = entity.getQuantity();
+        int threshold = entity.getMinThreshold();
+        if (quantity < threshold / 2) dto.setStatus(ProductStatus.LOW_STOCK);
+        else if (quantity < threshold) dto.setStatus(ProductStatus.REORDER_SOON);
+        else dto.setStatus(ProductStatus.IN_STOCK);
+
         return dto;
     }
-} 
+}

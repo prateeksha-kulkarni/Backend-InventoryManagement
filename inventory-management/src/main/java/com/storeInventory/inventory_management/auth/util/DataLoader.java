@@ -1,5 +1,6 @@
 package com.storeInventory.inventory_management.auth.util;
 
+import com.storeInventory.inventory_management.auth.model.Enum.ProductCategory;
 import com.storeInventory.inventory_management.auth.model.StoreEntity;
 import com.storeInventory.inventory_management.auth.model.ProductEntity;
 import com.storeInventory.inventory_management.auth.model.UserEntity;
@@ -120,21 +121,21 @@ public class DataLoader implements CommandLineRunner {
             ProductEntity productA = new ProductEntity();
             productA.setName("ProductA");
             productA.setSku("SKU-PA-001");
-            productA.setCategory("General");
+            productA.setCategory(ProductCategory.FOOD);
             productA.setDescription("Sample Product A");
             productRepository.save(productA);
 
             ProductEntity productB = new ProductEntity();
             productB.setName("ProductB");
             productB.setSku("SKU-PB-002");
-            productB.setCategory("Electronics");
+            productB.setCategory(ProductCategory.ELECTRONICS);
             productB.setDescription("Sample Product B");
             productRepository.save(productB);
 
             ProductEntity productC = new ProductEntity();
             productC.setName("ProductC");
             productC.setSku("SKU-PC-003");
-            productC.setCategory("Grocery");
+            productC.setCategory(ProductCategory.CLOTHING);
             productC.setDescription("Sample Product C");
             productRepository.save(productC);
 

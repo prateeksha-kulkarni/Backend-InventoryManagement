@@ -41,6 +41,7 @@ public class AuthService {
         LoginResponse response = new LoginResponse();
         response.setToken(token);
         response.setRole(user.getRole().name());
+        response.setUserId(user.getUserId().toString());
         if (user.getStore() != null) {
             response.setStoreId(user.getStore().getStoreId().toString());
             response.setLocation(user.getStore().getName());
