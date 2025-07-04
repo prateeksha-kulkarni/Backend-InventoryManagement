@@ -75,16 +75,18 @@ public class DataLoader implements CommandLineRunner {
             UserEntity admin = new UserEntity();
             admin.setUsername("admin");
             admin.setName("Admin User");
-            admin.setPasswordHash(passwordEncoder.encode("adminpass"));
+           // admin.setPasswordHash(passwordEncoder.encode("adminpass"));
+            admin.setPassword(passwordEncoder.encode("adminpass"));
+
             admin.setRole(UserRole.ADMIN);
-            admin.setEmail("admin@store.com");
+            admin.setEmail("sahanagnpari@gmail.com");
             admin.setStore(store1);
             userRepository.save(admin);
 
             UserEntity manager1 = new UserEntity();
             manager1.setUsername("manager1");
             manager1.setName("Manager One");
-            manager1.setPasswordHash(passwordEncoder.encode("manager1pass"));
+            manager1.setPassword(passwordEncoder.encode("manager1pass"));
             manager1.setRole(UserRole.MANAGER);
             manager1.setEmail("manager1@store.com");
             manager1.setStore(store1);
@@ -93,7 +95,7 @@ public class DataLoader implements CommandLineRunner {
             UserEntity manager2 = new UserEntity();
             manager2.setUsername("manager2");
             manager2.setName("Manager Two");
-            manager2.setPasswordHash(passwordEncoder.encode("manager2pass"));
+            manager2.setPassword(passwordEncoder.encode("manager2pass"));
             manager2.setRole(UserRole.MANAGER);
             manager2.setEmail("manager2@store.com");
             manager2.setStore(store2);
@@ -102,7 +104,7 @@ public class DataLoader implements CommandLineRunner {
             UserEntity analyst = new UserEntity();
             analyst.setUsername("analyst1");
             analyst.setName("Analyst One");
-            analyst.setPasswordHash(passwordEncoder.encode("analystpass"));
+            analyst.setPassword(passwordEncoder.encode("analystpass"));
             analyst.setRole(UserRole.ANALYST);
             analyst.setEmail("analyst1@store.com");
             analyst.setStore(store1);
@@ -111,7 +113,7 @@ public class DataLoader implements CommandLineRunner {
             UserEntity associate = new UserEntity();
             associate.setUsername("associate1");
             associate.setName("Associate One");
-            associate.setPasswordHash(passwordEncoder.encode("associatepass"));
+            associate.setPassword(passwordEncoder.encode("associatepass"));
             associate.setRole(UserRole.ASSOCIATE);
             associate.setEmail("associate1@store.com");
             associate.setStore(store2);
