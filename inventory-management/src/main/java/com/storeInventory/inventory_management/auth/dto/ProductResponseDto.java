@@ -17,7 +17,6 @@ public class ProductResponseDto {
     private LocalDateTime createdAt;
 
 
-
     public static ProductResponseDto fromEntity(ProductEntity entity) {
         ProductResponseDto dto = new ProductResponseDto();
         dto.setProductId(entity.getProductId());

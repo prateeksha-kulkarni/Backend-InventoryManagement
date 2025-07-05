@@ -4,6 +4,7 @@ import com.storeInventory.inventory_management.auth.model.InterStoreTransferEnti
 import com.storeInventory.inventory_management.auth.model.Enum.TransferStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

@@ -2,6 +2,7 @@ package com.storeInventory.inventory_management.auth.service;
 
 import com.storeInventory.inventory_management.auth.dto.ProductResponseDto;
 import com.storeInventory.inventory_management.auth.dto.ProductSearchDto;
+
 import com.storeInventory.inventory_management.auth.exception.ResourceNotFoundException;
 import com.storeInventory.inventory_management.auth.model.ProductEntity;
 import com.storeInventory.inventory_management.auth.repository.ProductRepository;
@@ -62,5 +63,6 @@ public class ProductService {
                 .map(p -> new ProductSearchDto(p.getProductId(), p.getName(), p.getSku()))
                 .collect(Collectors.toList());
     }
+
 
 } 

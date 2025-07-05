@@ -2,6 +2,7 @@ package com.storeInventory.inventory_management.auth.controller;
 
 import com.storeInventory.inventory_management.auth.dto.ProductResponseDto;
 import com.storeInventory.inventory_management.auth.dto.ProductSearchDto;
+
 import com.storeInventory.inventory_management.auth.model.ProductEntity;
 import com.storeInventory.inventory_management.auth.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
 
 @RestController
 @RequestMapping("/api/products")
@@ -48,6 +50,7 @@ public class ProductController {
         List<ProductSearchDto> result = productService.searchProductsByName(query);
         return ResponseEntity.ok(result);
     }
+
 
 }
 

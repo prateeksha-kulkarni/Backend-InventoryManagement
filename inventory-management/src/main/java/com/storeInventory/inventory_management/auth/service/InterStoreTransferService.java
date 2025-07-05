@@ -1,6 +1,7 @@
 package com.storeInventory.inventory_management.auth.service;
 
 import com.storeInventory.inventory_management.auth.exception.ResourceNotFoundException;
+
 import com.storeInventory.inventory_management.auth.model.InterStoreTransferEntity;
 import com.storeInventory.inventory_management.auth.model.Enum.TransferStatus;
 import com.storeInventory.inventory_management.auth.repository.InterStoreTransferRepository;
@@ -201,6 +202,7 @@ public class InterStoreTransferService {
 //        return transferRepository.save(dbTransfer);
 //    }
 
+
     public InterStoreTransferEntity getTransferById(UUID transferId) {
         return transferRepository.findById(transferId)
                 .orElseThrow(() -> new RuntimeException("Transfer not found"));
@@ -222,6 +224,7 @@ public class InterStoreTransferService {
     public List<InterStoreTransferEntity> getTransfersToStoreByStatus(UUID storeId, TransferStatus status) {
         return transferRepository.fetchTransfersToStoreWithDetails(storeId, status);
     }
+
 
 
 
