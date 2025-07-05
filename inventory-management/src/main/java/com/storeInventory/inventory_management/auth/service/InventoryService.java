@@ -43,6 +43,10 @@ public class InventoryService {
         return inventoryRepository.findByStore_StoreIdAndProduct_ProductId(storeId, productId);
     }
 
+    public List<InventoryEntity> searchInventory(String query, UUID storeId) {
+        return inventoryRepository.searchInventory(query,storeId);
+    }
+
     public InventoryEntity createInventory(InventoryEntity inventory) {
         return inventoryRepository.save(inventory);
     }

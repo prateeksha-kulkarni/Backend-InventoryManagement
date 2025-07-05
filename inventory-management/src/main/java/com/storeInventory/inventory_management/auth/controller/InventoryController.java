@@ -22,6 +22,15 @@ public class InventoryController {
     public ResponseEntity<List<InventoryEntity>> getAllInventory() {
         return ResponseEntity.ok(inventoryService.getAllInventory());
     }
+    @GetMapping("/search")
+    public ResponseEntity<List<InventoryResponseDto>> searchInventory(@RequestParam String query,
+                                                                      @RequestParam(required = false) UUID storeId) {
+        List<InventoryEntity> inventoryEntities = inventoryService.searchInventory(query, storeId);
+        List<InventoryResponseDto> dtos = inventoryEntities.stream()
+            .map(InventoryResponseDto::fromEntity)
+            .toList();
+        return ResponseEntity.ok(dtos);
+    }
 
     @GetMapping("/store/{storeId}")
     public ResponseEntity<List<InventoryResponseDto>> getInventoryByStore(@PathVariable UUID storeId) {
