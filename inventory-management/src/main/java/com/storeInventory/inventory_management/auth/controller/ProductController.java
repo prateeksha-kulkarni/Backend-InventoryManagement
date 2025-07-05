@@ -41,5 +41,12 @@ public class ProductController {
         productService.deleteProduct(id);
         return ResponseEntity.noContent().build();
     }
+    @PostMapping("/delete")
+    public ResponseEntity<Void> deleteProduct(@RequestBody ProductEntity product) {
+        productService.deleteProduct(product.getProductId());
+        return ResponseEntity.noContent().build(); // HTTP 204
+    }
+
+
 }
 

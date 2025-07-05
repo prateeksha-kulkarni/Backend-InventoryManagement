@@ -55,4 +55,6 @@ public class ProductService {
                 .orElseThrow(() -> new ResourceNotFoundException("Product", "productId", productId));
         productRepository.delete(product);
     }
+
+
 } 
