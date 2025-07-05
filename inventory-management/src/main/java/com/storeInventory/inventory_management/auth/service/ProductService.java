@@ -55,4 +55,10 @@ public class ProductService {
                 .orElseThrow(() -> new ResourceNotFoundException("Product", "productId", productId));
         productRepository.delete(product);
     }
+
+    public List<ProductResponseDto> searchProducts(String query) {
+        return productRepository.searchProducts(query).stream()
+                .map(ProductResponseDto::fromEntity)
+                .collect(Collectors.toList());
+    }
 } 

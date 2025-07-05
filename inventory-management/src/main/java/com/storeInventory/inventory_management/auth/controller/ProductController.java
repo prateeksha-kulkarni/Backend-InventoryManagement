@@ -26,6 +26,8 @@ public class ProductController {
         return ResponseEntity.ok(productService.getProductById(id));
     }
 
+
+
     @PostMapping
     public ResponseEntity<ProductResponseDto> createProduct(@RequestBody ProductEntity product) {
         return ResponseEntity.ok(productService.createProduct(product));
@@ -40,6 +42,10 @@ public class ProductController {
     public ResponseEntity<Void> deleteProduct(@PathVariable UUID id) {
         productService.deleteProduct(id);
         return ResponseEntity.noContent().build();
+    }
+    @GetMapping("/search")
+    public ResponseEntity<List<ProductResponseDto>> searchProducts(@RequestParam String query) {
+        return ResponseEntity.ok(productService.searchProducts(query));
     }
 }
 
