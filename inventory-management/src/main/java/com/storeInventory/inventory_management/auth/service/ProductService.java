@@ -1,6 +1,8 @@
 package com.storeInventory.inventory_management.auth.service;
 
 import com.storeInventory.inventory_management.auth.dto.ProductResponseDto;
+import com.storeInventory.inventory_management.auth.dto.ProductSearchDto;
+
 import com.storeInventory.inventory_management.auth.exception.ResourceNotFoundException;
 import com.storeInventory.inventory_management.auth.model.ProductEntity;
 import com.storeInventory.inventory_management.auth.repository.ProductRepository;
@@ -56,9 +58,18 @@ public class ProductService {
         productRepository.delete(product);
     }
 
-    public List<ProductResponseDto> searchProducts(String query) {
-        return productRepository.searchProducts(query).stream()
-                .map(ProductResponseDto::fromEntity)
-                .collect(Collectors.toList());
-    }
+//    public List<ProductSearchDto> searchProductsByName(String query) {
+//        List<ProductEntity> products = productRepository.findByNameContainingIgnoreCase(query);
+//        return products.stream()
+//                .map(p -> new ProductSearchDto(p.getProductId(), p.getName(), p.getSku()))
+//                .collect(Collectors.toList());
+//    }
+public List<ProductResponseDto> searchProducts(String query) {
+    return productRepository.searchProducts(query).stream()
+            .map(ProductResponseDto::fromEntity)
+            .collect(Collectors.toList());
+}
+
+
+
 } 
