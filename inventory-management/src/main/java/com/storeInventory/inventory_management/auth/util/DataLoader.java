@@ -170,16 +170,17 @@ public class DataLoader implements CommandLineRunner {
             inv4.setMinThreshold(7);
             inventoryRepository.save(inv4);
 
-            // Create inter-store transfer
+            // Create inter-store transfer (store1 requests 10 units of ProductA from store2)
             InterStoreTransferEntity transfer = new InterStoreTransferEntity();
             transfer.setProduct(productA);
-            transfer.setFromStore(store1);
-            transfer.setToStore(store2);
+            transfer.setFromStore(store1);                // store1 is requesting
+            transfer.setToStore(store2);                  // store2 is expected to fulfill
             transfer.setQuantity(10);
-            transfer.setStatus(TransferStatus.REQUESTED);
-            transfer.setRequestedBy(manager1);
-            transfer.setApprovedBy(manager2);
+            transfer.setStatus(TransferStatus.REQUESTED); // waiting for approval
+            transfer.setRequestedBy(manager1);            // manager of store1 (requester)
+            // No approvedBy at this point
             interStoreTransferRepository.save(transfer);
+
 
             // Create stock adjustment
             StockAdjustmentEntity adjustment = new StockAdjustmentEntity();
