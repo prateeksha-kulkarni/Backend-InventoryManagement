@@ -57,6 +57,7 @@ public class ProductService {
                 .orElseThrow(() -> new ResourceNotFoundException("Product", "productId", productId));
         productRepository.delete(product);
     }
+
 //    public List<ProductSearchDto> searchProductsByName(String query) {
 //        List<ProductEntity> products = productRepository.findByNameContainingIgnoreCase(query);
 //        return products.stream()
@@ -68,6 +69,7 @@ public List<ProductResponseDto> searchProducts(String query) {
             .map(ProductResponseDto::fromEntity)
             .collect(Collectors.toList());
 }
+
 
 
 } 

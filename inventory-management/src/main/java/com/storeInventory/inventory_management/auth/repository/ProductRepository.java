@@ -14,6 +14,7 @@ public interface ProductRepository extends JpaRepository<ProductEntity, UUID> {
     Optional<ProductEntity> findByName(String name);
     Optional<ProductEntity> findByNameIgnoreCase(String name);
     Optional<ProductEntity> findBySku(String sku);
+
     List<ProductEntity> findByNameContainingIgnoreCase(String name);
     @Query("SELECT p FROM ProductEntity p WHERE " +
             "LOWER(p.name) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
@@ -21,6 +22,5 @@ public interface ProductRepository extends JpaRepository<ProductEntity, UUID> {
             "LOWER(p.description) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
             "LOWER(p.sku) LIKE LOWER(CONCAT('%', :query, '%'))")
     List<ProductEntity> searchProducts(String query);
-
 
 }

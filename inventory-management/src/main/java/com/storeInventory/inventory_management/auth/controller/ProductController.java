@@ -30,6 +30,8 @@ public class ProductController {
         return ResponseEntity.ok(productService.getProductById(id));
     }
 
+
+
     @PostMapping
     public ResponseEntity<ProductResponseDto> createProduct(@RequestBody ProductEntity product) {
         return ResponseEntity.ok(productService.createProduct(product));
@@ -45,6 +47,7 @@ public class ProductController {
         productService.deleteProduct(id);
         return ResponseEntity.noContent().build();
     }
+
 //    @GetMapping("/search")
 //    public ResponseEntity<List<ProductSearchDto>> searchProducts(@RequestParam("query") String query) {
 //        List<ProductSearchDto> result = productService.searchProductsByName(query);
