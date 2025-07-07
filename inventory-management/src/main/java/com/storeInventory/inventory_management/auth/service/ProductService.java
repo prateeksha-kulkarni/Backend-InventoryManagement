@@ -57,12 +57,17 @@ public class ProductService {
                 .orElseThrow(() -> new ResourceNotFoundException("Product", "productId", productId));
         productRepository.delete(product);
     }
-    public List<ProductSearchDto> searchProductsByName(String query) {
-        List<ProductEntity> products = productRepository.findByNameContainingIgnoreCase(query);
-        return products.stream()
-                .map(p -> new ProductSearchDto(p.getProductId(), p.getName(), p.getSku()))
-                .collect(Collectors.toList());
-    }
+//    public List<ProductSearchDto> searchProductsByName(String query) {
+//        List<ProductEntity> products = productRepository.findByNameContainingIgnoreCase(query);
+//        return products.stream()
+//                .map(p -> new ProductSearchDto(p.getProductId(), p.getName(), p.getSku()))
+//                .collect(Collectors.toList());
+//    }
+public List<ProductResponseDto> searchProducts(String query) {
+    return productRepository.searchProducts(query).stream()
+            .map(ProductResponseDto::fromEntity)
+            .collect(Collectors.toList());
+}
 
 
 } 

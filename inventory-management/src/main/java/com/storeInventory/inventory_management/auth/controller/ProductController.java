@@ -45,11 +45,15 @@ public class ProductController {
         productService.deleteProduct(id);
         return ResponseEntity.noContent().build();
     }
-    @GetMapping("/search")
-    public ResponseEntity<List<ProductSearchDto>> searchProducts(@RequestParam("query") String query) {
-        List<ProductSearchDto> result = productService.searchProductsByName(query);
-        return ResponseEntity.ok(result);
-    }
+//    @GetMapping("/search")
+//    public ResponseEntity<List<ProductSearchDto>> searchProducts(@RequestParam("query") String query) {
+//        List<ProductSearchDto> result = productService.searchProductsByName(query);
+//        return ResponseEntity.ok(result);
+//    }
+     @GetMapping("/search")
+     public ResponseEntity<List<ProductResponseDto>> searchProducts(@RequestParam String query) {
+                return ResponseEntity.ok(productService.searchProducts(query));
+}
 
 
 }

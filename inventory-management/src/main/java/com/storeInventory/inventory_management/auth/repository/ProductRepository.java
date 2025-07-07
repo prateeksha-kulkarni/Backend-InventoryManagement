@@ -2,6 +2,7 @@ package com.storeInventory.inventory_management.auth.repository;
 
 import com.storeInventory.inventory_management.auth.model.ProductEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,6 +15,12 @@ public interface ProductRepository extends JpaRepository<ProductEntity, UUID> {
     Optional<ProductEntity> findByNameIgnoreCase(String name);
     Optional<ProductEntity> findBySku(String sku);
     List<ProductEntity> findByNameContainingIgnoreCase(String name);
+    @Query("SELECT p FROM ProductEntity p WHERE " +
+            "LOWER(p.name) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
+            "LOWER(CAST(p.category AS string)) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
+            "LOWER(p.description) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
+            "LOWER(p.sku) LIKE LOWER(CONCAT('%', :query, '%'))")
+    List<ProductEntity> searchProducts(String query);
 
 
 }
