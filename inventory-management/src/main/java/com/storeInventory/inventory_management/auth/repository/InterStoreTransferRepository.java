@@ -38,5 +38,14 @@ public interface InterStoreTransferRepository extends JpaRepository<InterStoreTr
         WHERE t.fromStore.storeId = :storeId OR t.toStore.storeId = :storeId
     """)
     List<InterStoreTransferEntity> fetchAllTransfersWithDetails(UUID storeId);
+
+    @Query("SELECT t FROM InterStoreTransferEntity t " +
+       "JOIN FETCH t.product " +
+       "JOIN FETCH t.fromStore " +
+       "JOIN FETCH t.toStore " +
+       "JOIN FETCH t.requestedBy " +
+       "LEFT JOIN FETCH t.approvedBy")
+    List<InterStoreTransferEntity> findAll();
+
 }
 
