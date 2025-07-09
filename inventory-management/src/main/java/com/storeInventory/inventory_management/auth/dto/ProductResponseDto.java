@@ -1,5 +1,6 @@
 package com.storeInventory.inventory_management.auth.dto;
 
+import com.storeInventory.inventory_management.auth.model.Enum.ProductCategory;
 import com.storeInventory.inventory_management.auth.model.ProductEntity;
 import lombok.Data;
 
@@ -11,9 +12,10 @@ public class ProductResponseDto {
     private UUID productId;
     private String name;
     private String sku;
-    private String category;
+    private ProductCategory category;
     private String description;
     private LocalDateTime createdAt;
+
 
     public static ProductResponseDto fromEntity(ProductEntity entity) {
         ProductResponseDto dto = new ProductResponseDto();

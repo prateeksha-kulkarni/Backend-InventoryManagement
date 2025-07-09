@@ -1,5 +1,6 @@
 package com.storeInventory.inventory_management.auth.controller;
 
+import com.storeInventory.inventory_management.auth.dto.request.AdjustmentRequest;
 import com.storeInventory.inventory_management.auth.model.InventoryEntity;
 import com.storeInventory.inventory_management.auth.service.InventoryService;
 import com.storeInventory.inventory_management.auth.dto.InventoryResponseDto;
@@ -21,6 +22,15 @@ public class InventoryController {
     public ResponseEntity<List<InventoryEntity>> getAllInventory() {
         return ResponseEntity.ok(inventoryService.getAllInventory());
     }
+    @GetMapping("/search")
+    public ResponseEntity<List<InventoryResponseDto>> searchInventory(@RequestParam String query,
+                                                                      @RequestParam(required = false) UUID storeId) {
+        List<InventoryEntity> inventoryEntities = inventoryService.searchInventory(query, storeId);
+        List<InventoryResponseDto> dtos = inventoryEntities.stream()
+            .map(InventoryResponseDto::fromEntity)
+            .toList();
+        return ResponseEntity.ok(dtos);
+    }
 
     @GetMapping("/store/{storeId}")
     public ResponseEntity<List<InventoryResponseDto>> getInventoryByStore(@PathVariable UUID storeId) {
@@ -39,5 +49,22 @@ public class InventoryController {
     @PostMapping
     public ResponseEntity<InventoryEntity> createInventory(@RequestBody InventoryEntity inventory) {
         return ResponseEntity.ok(inventoryService.createInventory(inventory));
+    }
+
+    @PutMapping("/adjust/{productName}")
+    public ResponseEntity<InventoryResponseDto> adjustQuantity(
+            @RequestBody AdjustmentRequest request,
+            @PathVariable String productName) {
+
+        InventoryEntity updated = inventoryService.adjustQuantity(
+                productName,
+                request.getQuantity(),
+                request.getType(),
+                request.getStoreId(),
+                request.getUserId(),
+                request.getReason()
+        );
+
+        return ResponseEntity.ok(InventoryResponseDto.fromEntity(updated));
     }
 } 

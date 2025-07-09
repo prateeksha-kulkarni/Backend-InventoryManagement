@@ -1,6 +1,7 @@
 package com.storeInventory.inventory_management.auth.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.storeInventory.inventory_management.auth.model.Enum.ProductCategory;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,9 +29,10 @@ public class ProductEntity {
     
     @Column(name = "sku", unique = true, nullable = false)
     private String sku;
-    
+
+    @Enumerated(EnumType.STRING)
     @Column(name = "category")
-    private String category;
+    private ProductCategory category;
     
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
