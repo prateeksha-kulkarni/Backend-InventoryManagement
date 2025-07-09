@@ -48,6 +48,12 @@ public class ProductController {
         return ResponseEntity.noContent().build();
     }
 
+    @PostMapping("/delete")
+    public ResponseEntity<Void> deleteProduct(@RequestBody ProductEntity product) {
+        productService.deleteProduct(product.getProductId());
+        return ResponseEntity.noContent().build(); // HTTP 204
+    }
+
 //    @GetMapping("/search")
 //    public ResponseEntity<List<ProductSearchDto>> searchProducts(@RequestParam("query") String query) {
 //        List<ProductSearchDto> result = productService.searchProductsByName(query);
