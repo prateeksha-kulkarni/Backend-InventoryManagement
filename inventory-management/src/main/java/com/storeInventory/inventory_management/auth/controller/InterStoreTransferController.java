@@ -19,7 +19,16 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class InterStoreTransferController {
     private final InterStoreTransferService transferService;
+    
+    @GetMapping("/logs")
+public ResponseEntity<List<TransferResponseDto>> getAllTransfers() {
+    List<InterStoreTransferEntity> transfers = transferService.getAllTransfers();
+    List<TransferResponseDto> dtos = transfers.stream()
+            .map(TransferResponseDto::fromEntity)
+            .toList();
 
+    return ResponseEntity.ok(dtos);
+}
     @GetMapping("/to/{storeId}")
     public ResponseEntity<List<InterStoreTransferEntity>> getTransfersToStore(@PathVariable UUID storeId, @RequestParam TransferStatus status) {
         return ResponseEntity.ok(transferService.getTransfersToStore(storeId, status));

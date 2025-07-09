@@ -5,6 +5,7 @@ import com.storeInventory.inventory_management.auth.service.StockAdjustmentServi
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.storeInventory.inventory_management.auth.dto.response.StockAdjustmentResponseDto;
 
 import java.util.List;
 import java.util.UUID;
@@ -15,10 +16,14 @@ import java.util.UUID;
 public class StockAdjustmentController {
     private final StockAdjustmentService stockAdjustmentService;
 
+    
     @GetMapping
-    public ResponseEntity<List<StockAdjustmentEntity>> getAllAdjustments() {
-        return ResponseEntity.ok(stockAdjustmentService.getAllAdjustments());
-    }
+public ResponseEntity<List<StockAdjustmentResponseDto>> getAllAdjustments() {
+    List<StockAdjustmentResponseDto> dtos = stockAdjustmentService.getAllAdjustments().stream()
+        .map(StockAdjustmentResponseDto::fromEntity)
+        .toList();
+    return ResponseEntity.ok(dtos);
+}
 
     @GetMapping("/inventory/{inventoryId}")
     public ResponseEntity<List<StockAdjustmentEntity>> getAdjustmentsByInventory(@PathVariable UUID inventoryId) {

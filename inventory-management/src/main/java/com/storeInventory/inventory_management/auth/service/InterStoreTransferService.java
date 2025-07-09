@@ -37,6 +37,10 @@ public class InterStoreTransferService {
         return transferRepository.findByFromStore_StoreId(fromStoreId);
     }
 
+    public List<InterStoreTransferEntity> getAllTransfers() {
+    return transferRepository.findAll(); 
+    }// assuming you have the repo
+
     public InterStoreTransferEntity createTransfer(InterStoreTransferEntity transfer) {
         // Look up requestedBy user by username
         if (transfer.getRequestedBy() != null && transfer.getRequestedBy().getUsername() != null) {

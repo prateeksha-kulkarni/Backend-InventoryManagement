@@ -16,7 +16,7 @@ public class StockAdjustmentService {
     public List<StockAdjustmentEntity> getAllAdjustments() {
         return stockAdjustmentRepository.findAll();
     }
-
+    
     public List<StockAdjustmentEntity> getAdjustmentsByInventory(UUID inventoryId) {
         return stockAdjustmentRepository.findAll().stream()
                 .filter(adj -> adj.getInventory().getInventoryId().equals(inventoryId))
