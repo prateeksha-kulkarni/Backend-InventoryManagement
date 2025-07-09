@@ -30,7 +30,7 @@ public class InventoryReportService {
         LocalDateTime end = request.getEndDate().atTime(LocalTime.MAX);
 
         List<InterStoreTransferEntity> transfers = transferRepository
-                .findByStatusAndTimestampBetween(TransferStatus.APPROVED, start, end);
+                .findByStatusAndTimestampBetween(TransferStatus.COMPLETED, start, end);
 
 
         Map<String, Integer> outflowMap = new HashMap<>();
