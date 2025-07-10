@@ -1,5 +1,6 @@
 package com.storeInventory.inventory_management.auth.service;
 
+import com.storeInventory.inventory_management.auth.dto.InventoryResponseDto;
 import com.storeInventory.inventory_management.auth.model.Enum.ChangeType;
 import com.storeInventory.inventory_management.auth.model.InventoryEntity;
 import com.storeInventory.inventory_management.auth.model.ProductEntity;
@@ -43,8 +44,11 @@ public class InventoryService {
         return inventoryRepository.findByStore_StoreIdAndProduct_ProductId(storeId, productId);
     }
 
-    public List<InventoryEntity> searchInventory(String query, UUID storeId) {
-        return inventoryRepository.searchInventory(query,storeId);
+    public List<InventoryResponseDto> searchInventory(String query, UUID storeId) {
+        List<InventoryEntity> inventoryEntities = inventoryRepository.searchInventory(query, storeId);
+        return inventoryEntities.stream()
+            .map(InventoryResponseDto::fromEntity)
+            .toList();
     }
 
     public InventoryEntity createInventory(InventoryEntity inventory) {
