@@ -12,6 +12,7 @@ import java.util.UUID;
 @Repository
 public interface InventoryRepository extends JpaRepository<InventoryEntity, UUID> {
     List<InventoryEntity> findByStore_StoreId(UUID storeId);
+    List<InventoryEntity> findByProduct_ProductId(UUID productId);
     Optional<InventoryEntity> findByStore_StoreIdAndProduct_ProductId(UUID storeId, UUID productId);
 
     @Query ("SELECT i FROM InventoryEntity i WHERE " +

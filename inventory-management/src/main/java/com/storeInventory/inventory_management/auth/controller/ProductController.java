@@ -4,10 +4,14 @@ import com.storeInventory.inventory_management.auth.dto.ProductResponseDto;
 import com.storeInventory.inventory_management.auth.dto.ProductSearchDto;
 
 import com.storeInventory.inventory_management.auth.model.ProductEntity;
+import com.storeInventory.inventory_management.auth.repository.ProductRepository;
 import com.storeInventory.inventory_management.auth.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.UUID;
@@ -19,6 +23,9 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
+
+    @Autowired
+    ProductRepository productRepository;
 
     @GetMapping
     public ResponseEntity<List<ProductResponseDto>> getAllProducts() {
@@ -62,8 +69,14 @@ public class ProductController {
      @GetMapping("/search")
      public ResponseEntity<List<ProductResponseDto>> searchProducts(@RequestParam String query) {
                 return ResponseEntity.ok(productService.searchProducts(query));
-}
+     }
 
-
+    @GetMapping("/sku/{sku}")
+    public ResponseEntity<ProductEntity> getProductBySku(@PathVariable String sku) {
+        return ResponseEntity.ok(
+                productRepository.findBySku(sku)
+                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "SKU not found"))
+        );
+    }
 }
 
