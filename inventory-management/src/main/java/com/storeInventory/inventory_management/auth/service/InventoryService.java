@@ -1,14 +1,8 @@
 package com.storeInventory.inventory_management.auth.service;
 
+import com.storeInventory.inventory_management.auth.model.*;
 import com.storeInventory.inventory_management.auth.model.Enum.ChangeType;
-import com.storeInventory.inventory_management.auth.model.InventoryEntity;
-import com.storeInventory.inventory_management.auth.model.ProductEntity;
-import com.storeInventory.inventory_management.auth.model.StockAdjustmentEntity;
-import com.storeInventory.inventory_management.auth.model.UserEntity;
-import com.storeInventory.inventory_management.auth.repository.InventoryRepository;
-import com.storeInventory.inventory_management.auth.repository.ProductRepository;
-import com.storeInventory.inventory_management.auth.repository.StockAdjustmentRepository;
-import com.storeInventory.inventory_management.auth.repository.UserRepository;
+import com.storeInventory.inventory_management.auth.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +18,9 @@ public class InventoryService {
 
     @Autowired
     ProductRepository productRepository;
+
+    @Autowired
+    StoreRepository storeRepository;
 
     @Autowired
     UserRepository userRepository;
@@ -47,9 +44,39 @@ public class InventoryService {
         return inventoryRepository.searchInventory(query,storeId);
     }
 
+    public List<InventoryEntity> getInventoryByProduct(UUID productId) {
+        return inventoryRepository.findByProduct_ProductId(productId);
+    }
+
     public InventoryEntity createInventory(InventoryEntity inventory) {
+        System.out.println("🚨 Incoming Inventory Request: " + inventory);
+
+        if (inventory.getProduct() == null || inventory.getProduct().getProductId() == null) {
+            throw new IllegalArgumentException("❌ Product ID is missing in the request");
+        }
+
+        if (inventory.getStore() == null || inventory.getStore().getStoreId() == null) {
+            throw new IllegalArgumentException("❌ Store ID is missing in the request");
+        }
+
+        UUID productId = inventory.getProduct().getProductId();
+        UUID storeId = inventory.getStore().getStoreId();
+
+        System.out.println("✅ Product ID: " + productId);
+        System.out.println("✅ Store ID: " + storeId);
+
+        ProductEntity product = productRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Product not found: " + productId));
+
+        StoreEntity store = storeRepository.findById(storeId)
+                .orElseThrow(() -> new RuntimeException("Store not found: " + storeId));
+
+        inventory.setProduct(product);
+        inventory.setStore(store);
+
         return inventoryRepository.save(inventory);
     }
+
 
     public InventoryEntity adjustQuantity(String productName, int quantity, ChangeType type, UUID storeId, UUID userId, String reason) {
         // 1. Fetch product

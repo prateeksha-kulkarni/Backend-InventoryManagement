@@ -23,17 +23,18 @@ public class InventoryEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "inventory_id")
     private UUID inventoryId;
-    
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id", nullable = false)
-    @JsonBackReference
+    @JsonBackReference("inventory-store")
     private StoreEntity store;
-    
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", nullable = false)
-    @JsonBackReference
+    @JsonBackReference("inventory-product")
     private ProductEntity product;
-    
+
+
     @Column(name = "quantity", nullable = false)
     private Integer quantity = 0;
     
