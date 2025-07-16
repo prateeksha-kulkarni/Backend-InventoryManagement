@@ -16,10 +16,9 @@ public interface InventoryRepository extends JpaRepository<InventoryEntity, UUID
     Optional<InventoryEntity> findByStore_StoreIdAndProduct_ProductId(UUID storeId, UUID productId);
 
     @Query ("SELECT i FROM InventoryEntity i WHERE " +
-            "LOWER(i.product.name) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
+            "(LOWER(i.product.name) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
             "LOWER(CAST(i.product.category AS string)) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
-            "LOWER(i.product.description) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
-            "LOWER(i.product.sku) LIKE LOWER(CONCAT('%', :query, '%'))" +
+            "LOWER(i.product.sku) LIKE LOWER(CONCAT('%', :query, '%')))" +
             " AND i.store.storeId = :storeId")
 
     List<InventoryEntity> searchInventory(String query, UUID storeId);
