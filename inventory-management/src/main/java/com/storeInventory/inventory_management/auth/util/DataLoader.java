@@ -25,8 +25,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Component
 public class DataLoader implements CommandLineRunner {
 
@@ -139,7 +137,7 @@ public class DataLoader implements CommandLineRunner {
             productC.setSku("SKU-PC-003");
             productC.setCategory(ProductCategory.CLOTHING);
             productC.setDescription("Sample Product C");
-            productRepository.save(productC);
+            productRepository.save(productB);
 
             // Create inventory
             InventoryEntity inv1 = new InventoryEntity();
@@ -159,16 +157,10 @@ public class DataLoader implements CommandLineRunner {
             InventoryEntity inv3 = new InventoryEntity();
             inv3.setStore(store1);
             inv3.setProduct(productB);
-            inv3.setQuantity(30);
+            inv3.setQuantity(2);
             inv3.setMinThreshold(3);
             inventoryRepository.save(inv3);
 
-            InventoryEntity inv4 = new InventoryEntity();
-            inv4.setStore(store1);
-            inv4.setProduct(productC);
-            inv4.setQuantity(75);
-            inv4.setMinThreshold(7);
-            inventoryRepository.save(inv4);
 
             // Create inter-store transfer (store1 requests 10 units of ProductA from store2)
             InterStoreTransferEntity transfer = new InterStoreTransferEntity();
