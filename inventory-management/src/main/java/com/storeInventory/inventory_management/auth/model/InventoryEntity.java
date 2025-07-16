@@ -47,4 +47,6 @@ public class InventoryEntity {
     @OneToMany(mappedBy = "inventory", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private List<StockAdjustmentEntity> stockAdjustments;
-} 
+
+
+}
