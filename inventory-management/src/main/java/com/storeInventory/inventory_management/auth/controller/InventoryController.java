@@ -19,9 +19,14 @@ public class InventoryController {
     private final InventoryService inventoryService;
 
     @GetMapping
-    public ResponseEntity<List<InventoryEntity>> getAllInventory() {
-        return ResponseEntity.ok(inventoryService.getAllInventory());
+    public ResponseEntity<List<InventoryResponseDto>> getAllInventory() {
+        List<InventoryEntity> inventoryEntities = inventoryService.getAllInventory();
+        List<InventoryResponseDto> dtos = inventoryEntities.stream()
+                .map(InventoryResponseDto::fromEntity)
+                .toList();
+        return ResponseEntity.ok(dtos);
     }
+
     @GetMapping("/search")
     public ResponseEntity<List<InventoryResponseDto>> searchInventory(@RequestParam String query,
                                                                       @RequestParam(required = false) UUID storeId,
@@ -42,6 +47,17 @@ public class InventoryController {
     public ResponseEntity<Optional<InventoryEntity>> getInventoryByStoreAndProduct(@PathVariable UUID storeId, @PathVariable UUID productId) {
         return ResponseEntity.ok(inventoryService.getInventoryByStoreAndProduct(storeId, productId));
     }
+
+    @GetMapping("/product/{productId}")
+    public ResponseEntity<List<InventoryResponseDto>> getInventoryByProduct(@PathVariable UUID productId) {
+        List<InventoryEntity> inventories = inventoryService.getInventoryByProduct(productId);
+        List<InventoryResponseDto> dtos = inventories.stream()
+                .map(InventoryResponseDto::fromEntity)
+                .toList();
+        return ResponseEntity.ok(dtos);
+    }
+
+
 
     @PostMapping
     public ResponseEntity<InventoryEntity> createInventory(@RequestBody InventoryEntity inventory) {
