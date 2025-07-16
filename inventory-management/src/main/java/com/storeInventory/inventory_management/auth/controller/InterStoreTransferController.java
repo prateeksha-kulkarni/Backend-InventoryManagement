@@ -75,7 +75,7 @@ public ResponseEntity<List<TransferResponseDto>> getAllTransfers() {
             return ResponseEntity.notFound().build();
         }
     }
-    @GetMapping("/api/transfers/to/{storeId}")
+    @GetMapping("/to/{storeId}/dto")
     public ResponseEntity<List<TransferResponseDto>> getPendingTransfers(
             @PathVariable UUID storeId,
             @RequestParam TransferStatus status) {
