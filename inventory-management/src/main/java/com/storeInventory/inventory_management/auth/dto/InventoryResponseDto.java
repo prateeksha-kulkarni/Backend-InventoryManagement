@@ -63,8 +63,8 @@ public class InventoryResponseDto {
         // Add stock status logic
         int quantity = entity.getQuantity();
         int threshold = entity.getMinThreshold();
-        if (quantity < threshold / 2) dto.setStatus(ProductStatus.LOW_STOCK);
-        else if (quantity < threshold) dto.setStatus(ProductStatus.REORDER_SOON);
+        if (quantity <= threshold) dto.setStatus(ProductStatus.LOW_STOCK);
+        else if (quantity < 2 * threshold) dto.setStatus(ProductStatus.REORDER_SOON);
         else dto.setStatus(ProductStatus.IN_STOCK);
 
         return dto;
