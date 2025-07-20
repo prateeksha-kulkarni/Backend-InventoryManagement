@@ -4,6 +4,7 @@ import com.storeInventory.inventory_management.auth.dto.ProductResponseDto;
 import com.storeInventory.inventory_management.auth.exception.ResourceNotFoundException;
 import com.storeInventory.inventory_management.auth.model.ProductEntity;
 import com.storeInventory.inventory_management.auth.repository.ProductRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -55,4 +56,12 @@ public class ProductService {
                 .orElseThrow(() -> new ResourceNotFoundException("Product", "productId", productId));
         productRepository.delete(product);
     }
+    @Transactional
+    public void deleteByProductName(String name) {
+        ProductEntity product = productRepository.findByName(name)
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found with name: " + name));
+        productRepository.delete(product);
+    }
+
+
 } 
