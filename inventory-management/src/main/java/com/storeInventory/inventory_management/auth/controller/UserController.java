@@ -154,4 +154,37 @@ public class UserController {
     public ResponseEntity<UserEntity> createUser(@RequestBody UserEntity user) {
         return ResponseEntity.ok(userService.createUser(user));
     }
+
+
+    // ========== Check Duplicate Username or Email ==========
+    @GetMapping("/check-duplicate")
+    public ResponseEntity<?> checkDuplicate(
+            @RequestParam(required = false) String username,
+            @RequestParam(required = false) String email) {
+
+        boolean usernameExists = false;
+        boolean emailExists = false;
+
+        if (username != null && !username.isEmpty()) {
+            usernameExists = userService.getUserByUsername(username).isPresent();
+        }
+
+        if (email != null && !email.isEmpty()) {
+            emailExists = userService.getUserByEmail(email).isPresent();
+        }
+
+        return ResponseEntity.ok(
+                java.util.Map.of(
+                        "usernameExists", usernameExists,
+                        "emailExists", emailExists
+                )
+        );
+    }
+
+
 }
+
+
+
+
+
