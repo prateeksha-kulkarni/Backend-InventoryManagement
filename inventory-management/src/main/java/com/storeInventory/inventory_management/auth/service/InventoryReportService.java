@@ -79,7 +79,7 @@ public class InventoryReportService {
             String stockStatus;
             if (quantity <= minThreshold) {
                 stockStatus = "Stockout";
-            } else if (quantity <= 2 * minThreshold) {
+            } else if (quantity <= 3 * minThreshold) {
                 stockStatus = "Healthy";
             } else {
                 stockStatus = "Overstock";
