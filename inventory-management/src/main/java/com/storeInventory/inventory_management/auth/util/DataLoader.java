@@ -25,6 +25,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class DataLoader implements CommandLineRunner {
 
@@ -68,6 +70,7 @@ public class DataLoader implements CommandLineRunner {
             store2.setName("Lowe's Mumbai");
             store2.setLocation("Mumbai");
             storeRepository.save(store2);
+
 
             StoreEntity store3 = new StoreEntity();
             store3.setName("Lowe's Chennai");
@@ -147,6 +150,7 @@ public class DataLoader implements CommandLineRunner {
             inv1.setStore(store1);
             inv1.setProduct(product1);
             inv1.setQuantity(35);
+
             inv1.setMinThreshold(5);
             inventoryRepository.save(inv1);
 
@@ -172,23 +176,27 @@ public class DataLoader implements CommandLineRunner {
             inventoryRepository.save(inv4);
 
             // Create stock adjustment (example only)
+
             StockAdjustmentEntity adjustment = new StockAdjustmentEntity();
             adjustment.setInventory(inv1);
             adjustment.setUser(manager1);
             adjustment.setChangeType(ChangeType.ADD);
             adjustment.setQuantityChange(10);
             adjustment.setReason("Restocking Power Drills");
+
             stockAdjustmentRepository.save(adjustment);
 
-            // Create notification
+            // Notification
             NotificationEntity notification = new NotificationEntity();
             notification.setStore(store1);
             notification.setProduct(product2);
+
             notification.setType(NotificationEntity.NotificationType.LOW_STOCK);
             notification.setIsRead(false);
             notificationRepository.save(notification);
 
             System.out.println("Seeded  data for users, products, stores, and inventory.");
+
         }
     }
 

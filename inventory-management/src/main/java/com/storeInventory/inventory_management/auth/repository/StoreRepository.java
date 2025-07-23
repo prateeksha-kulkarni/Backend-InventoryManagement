@@ -1,6 +1,20 @@
+////package com.storeInventory.inventory_management.auth.repository;
+////
+////public interface StoreRepository {
+////}
+//
 //package com.storeInventory.inventory_management.auth.repository;
 //
-//public interface StoreRepository {
+//import com.storeInventory.inventory_management.auth.model.StoreEntity;
+//import org.springframework.data.jpa.repository.JpaRepository;
+//import org.springframework.stereotype.Repository;
+//
+//import java.util.UUID;
+//import java.util.Optional;
+//
+//@Repository
+//public interface StoreRepository extends JpaRepository<StoreEntity, UUID> {
+//    Optional<StoreEntity> findByName(String name);
 //}
 
 package com.storeInventory.inventory_management.auth.repository;
@@ -15,4 +29,5 @@ import java.util.Optional;
 @Repository
 public interface StoreRepository extends JpaRepository<StoreEntity, UUID> {
     Optional<StoreEntity> findByName(String name);
+    boolean existsByNameIgnoreCase(String name); // ✅ For duplicate check
 }
