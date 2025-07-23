@@ -31,4 +31,8 @@ public class StoreService {
     public StoreEntity createStore(StoreEntity store) {
         return storeRepository.save(store);
     }
+
+    public boolean storeNameExists(String name) {
+        return storeRepository.existsByNameIgnoreCase(name.trim());
+    }
 }
