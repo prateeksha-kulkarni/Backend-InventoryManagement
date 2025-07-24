@@ -61,170 +61,144 @@ public class DataLoader implements CommandLineRunner {
     public void run(String... args) {
         if (userRepository.count() == 0 && storeRepository.count() == 0 && productRepository.count() == 0) {
             // Create stores
-            StoreEntity mysuruStore = new StoreEntity();
-            mysuruStore.setName("Mysuru Store");
-            mysuruStore.setLocation("JLB Road, Mysuru");
-            storeRepository.save(mysuruStore);
+            StoreEntity store1 = new StoreEntity();
+            store1.setName("Lowe's Bengaluru");
+            store1.setLocation("Bengaluru");
+            storeRepository.save(store1);
 
-            StoreEntity bengaluruStore = new StoreEntity();
-            bengaluruStore.setName("Bengaluru Store");
-            bengaluruStore.setLocation("Koramangala, Bengaluru");
-            storeRepository.save(bengaluruStore);
+            StoreEntity store2 = new StoreEntity();
+            store2.setName("Lowe's Mumbai");
+            store2.setLocation("Mumbai");
+            storeRepository.save(store2);
+
+
+            StoreEntity store3 = new StoreEntity();
+            store3.setName("Lowe's Chennai");
+            store3.setLocation("Chennai");
+            storeRepository.save(store3);
 
             // Create users
             UserEntity admin = new UserEntity();
-            admin.setUsername("admin");
-            admin.setName("Sahana GN");
+            admin.setUsername("admin.lowes");
+            admin.setName("Ravi Shankar");
             admin.setPassword(passwordEncoder.encode("adminpass"));
             admin.setRole(UserRole.ADMIN);
-            admin.setEmail("sahanagnpari@gmail.com");
-            admin.setStore(mysuruStore);
+            admin.setEmail("ravi.shankar@lowes.in");
+            admin.setStore(store1);
             userRepository.save(admin);
 
             UserEntity manager1 = new UserEntity();
-            manager1.setUsername("manager_mysuru");
-            manager1.setName("Ravi Kumar");
-            manager1.setPassword(passwordEncoder.encode("managerpass"));
+            manager1.setUsername("manager.bangalore");
+            manager1.setName("Ananya Reddy");
+            manager1.setPassword(passwordEncoder.encode("manager1pass"));
             manager1.setRole(UserRole.MANAGER);
-            manager1.setEmail("manager1@store.com");
-            manager1.setStore(mysuruStore);
+            manager1.setEmail("ananya.reddy@lowes.in");
+            manager1.setStore(store1);
             userRepository.save(manager1);
 
             UserEntity manager2 = new UserEntity();
-            manager2.setUsername("manager_blr");
-            manager2.setName("Divya R");
-            manager2.setPassword(passwordEncoder.encode("managerpass"));
+            manager2.setUsername("manager.mumbai");
+            manager2.setName("Vikram Shah");
+            manager2.setPassword(passwordEncoder.encode("manager2pass"));
             manager2.setRole(UserRole.MANAGER);
-            manager2.setEmail("manager2@store.com");
-            manager2.setStore(bengaluruStore);
+            manager2.setEmail("vikram.shah@lowes.in");
+            manager2.setStore(store2);
             userRepository.save(manager2);
 
             UserEntity analyst = new UserEntity();
-            analyst.setUsername("analyst1");
-            analyst.setName("Kiran S");
+            analyst.setUsername("analyst.chennai");
+            analyst.setName("Divya Suresh");
             analyst.setPassword(passwordEncoder.encode("analystpass"));
             analyst.setRole(UserRole.ANALYST);
-            analyst.setEmail("analyst1@store.com");
-            analyst.setStore(mysuruStore);
+            analyst.setEmail("divya.suresh@lowes.in");
+            analyst.setStore(store3);
             userRepository.save(analyst);
 
             UserEntity associate = new UserEntity();
-            associate.setUsername("associate1");
-            associate.setName("Pooja M");
+            associate.setUsername("associate.mumbai");
+            associate.setName("Kunal Mehta");
             associate.setPassword(passwordEncoder.encode("associatepass"));
             associate.setRole(UserRole.ASSOCIATE);
-            associate.setEmail("associate1@store.com");
-            associate.setStore(bengaluruStore);
+            associate.setEmail("kunal.mehta@lowes.in");
+            associate.setStore(store2);
             userRepository.save(associate);
 
-            // Create products (non-food)
-            ProductEntity laptop = new ProductEntity();
-            laptop.setName("HP Pavilion Laptop");
-            laptop.setSku("SKU-LAPTOP-001");
-            laptop.setCategory(ProductCategory.ELECTRONICS);
-            laptop.setDescription("HP Pavilion 15.6-inch, Intel i5, 8GB RAM");
-            productRepository.save(laptop);
+            // Create products
+            ProductEntity product1 = new ProductEntity();
+            product1.setName("Power Drill");
+            product1.setSku("PD-2023-IND");
+            product1.setCategory(ProductCategory.ELECTRONICS);
+            product1.setDescription("Cordless Power Drill - 20V");
+            productRepository.save(product1);
 
-            ProductEntity fridge = new ProductEntity();
-            fridge.setName("Samsung Double Door Fridge");
-            fridge.setSku("SKU-FRIDGE-002");
-            fridge.setCategory(ProductCategory.ELECTRONICS);
-            fridge.setDescription("Samsung 253L 2 Star Refrigerator");
-            productRepository.save(fridge);
+            ProductEntity product2 = new ProductEntity();
+            product2.setName("LED Bulb");
+            product2.setSku("LED-9W-B22");
+            product2.setCategory(ProductCategory.ELECTRONICS);
+            product2.setDescription("9W B22 Cool White LED Bulb");
+            productRepository.save(product2);
 
-            ProductEntity jeans = new ProductEntity();
-            jeans.setName("Men's Slim Fit Jeans");
-            jeans.setSku("SKU-JEANS-003");
-            jeans.setCategory(ProductCategory.CLOTHING);
-            jeans.setDescription("Blue Denim Slim Fit Jeans");
-            productRepository.save(jeans);
+            ProductEntity product3 = new ProductEntity();
+            product3.setName("Cement Bag");
+            product3.setSku("CEM-BAG-50KG");
+            product3.setCategory(ProductCategory.HOME_GOODS);
+            product3.setDescription("50KG OPC 43 Grade Cement Bag");
+            productRepository.save(product3);
 
-            ProductEntity washingMachine = new ProductEntity();
-            washingMachine.setName("LG Washing Machine");
-            washingMachine.setSku("SKU-WASH-004");
-            washingMachine.setCategory(ProductCategory.ELECTRONICS);
-            washingMachine.setDescription("LG 7kg Front Load Washing Machine");
-            productRepository.save(washingMachine);
-
-            ProductEntity smartwatch = new ProductEntity();
-            smartwatch.setName("Noise Smartwatch");
-            smartwatch.setSku("SKU-WATCH-005");
-            smartwatch.setCategory(ProductCategory.ELECTRONICS);
-            smartwatch.setDescription("Noise ColorFit Ultra 2 with AMOLED Display");
-            productRepository.save(smartwatch);
-
-            // Inventory
+            // Create inventory
             InventoryEntity inv1 = new InventoryEntity();
-            inv1.setStore(mysuruStore);
-            inv1.setProduct(laptop);
-            inv1.setQuantity(20);
+            inv1.setStore(store1);
+            inv1.setProduct(product1);
+            inv1.setQuantity(35);
+
             inv1.setMinThreshold(5);
             inventoryRepository.save(inv1);
 
             InventoryEntity inv2 = new InventoryEntity();
-            inv2.setStore(bengaluruStore);
-            inv2.setProduct(fridge);
-            inv2.setQuantity(10);
-            inv2.setMinThreshold(2);
+            inv2.setStore(store2);
+            inv2.setProduct(product1);
+            inv2.setQuantity(20);
+            inv2.setMinThreshold(5);
             inventoryRepository.save(inv2);
 
             InventoryEntity inv3 = new InventoryEntity();
-            inv3.setStore(mysuruStore);
-            inv3.setProduct(jeans);
-            inv3.setQuantity(40);
-            inv3.setMinThreshold(8);
+            inv3.setStore(store1);
+            inv3.setProduct(product2);
+            inv3.setQuantity(100);
+            inv3.setMinThreshold(20);
             inventoryRepository.save(inv3);
 
             InventoryEntity inv4 = new InventoryEntity();
-            inv4.setStore(bengaluruStore);
-            inv4.setProduct(washingMachine);
-            inv4.setQuantity(12);
-            inv4.setMinThreshold(3);
+            inv4.setStore(store3);
+            inv4.setProduct(product3);
+            inv4.setQuantity(60);
+            inv4.setMinThreshold(10);
             inventoryRepository.save(inv4);
 
-            InventoryEntity inv5 = new InventoryEntity();
-            inv5.setStore(mysuruStore);
-            inv5.setProduct(smartwatch);
-            inv5.setQuantity(25);
-            inv5.setMinThreshold(5);
-            inventoryRepository.save(inv5);
+            // Create stock adjustment (example only)
 
-            // Inter-store transfer
-            InterStoreTransferEntity transfer = new InterStoreTransferEntity();
-            transfer.setProduct(smartwatch);
-            transfer.setFromStore(mysuruStore);
-            transfer.setToStore(bengaluruStore);
-            transfer.setQuantity(5);
-            transfer.setStatus(TransferStatus.REQUESTED);
-            transfer.setRequestedBy(manager1);
-            interStoreTransferRepository.save(transfer);
-
-            // Stock adjustment
             StockAdjustmentEntity adjustment = new StockAdjustmentEntity();
             adjustment.setInventory(inv1);
             adjustment.setUser(manager1);
             adjustment.setChangeType(ChangeType.ADD);
             adjustment.setQuantityChange(10);
-            adjustment.setReason("New laptop stock received");
+            adjustment.setReason("Restocking Power Drills");
+
             stockAdjustmentRepository.save(adjustment);
 
             // Notification
             NotificationEntity notification = new NotificationEntity();
-            notification.setStore(bengaluruStore);
-            notification.setProduct(fridge);
+            notification.setStore(store1);
+            notification.setProduct(product2);
+
             notification.setType(NotificationEntity.NotificationType.LOW_STOCK);
             notification.setIsRead(false);
             notificationRepository.save(notification);
 
-            // Change log
-            ChangeLogEntity changeLog = new ChangeLogEntity();
-            changeLog.setTableName("inventory");
-            changeLog.setRecordId(inv1.getInventoryId());
-            changeLog.setUser(manager1);
-            changeLog.setChangeSummary("Added 10 laptops to Mysuru Store");
-            changeLogRepository.save(changeLog);
+            System.out.println("Seeded  data for users, products, stores, and inventory.");
 
-            System.out.println("Seeded with electronics & clothing inventory (no food items).");
         }
     }
+
 }
+
