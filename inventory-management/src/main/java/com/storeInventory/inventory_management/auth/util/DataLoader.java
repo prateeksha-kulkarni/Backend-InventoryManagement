@@ -25,6 +25,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class DataLoader implements CommandLineRunner {
 
@@ -60,146 +62,143 @@ public class DataLoader implements CommandLineRunner {
         if (userRepository.count() == 0 && storeRepository.count() == 0 && productRepository.count() == 0) {
             // Create stores
             StoreEntity store1 = new StoreEntity();
-            store1.setName("Store 1");
-            store1.setLocation("Downtown");
+            store1.setName("Lowe's Bengaluru");
+            store1.setLocation("Bengaluru");
             storeRepository.save(store1);
 
             StoreEntity store2 = new StoreEntity();
-            store2.setName("Store 2");
-            store2.setLocation("Uptown");
+            store2.setName("Lowe's Mumbai");
+            store2.setLocation("Mumbai");
             storeRepository.save(store2);
+
+
+            StoreEntity store3 = new StoreEntity();
+            store3.setName("Lowe's Chennai");
+            store3.setLocation("Chennai");
+            storeRepository.save(store3);
 
             // Create users
             UserEntity admin = new UserEntity();
-            admin.setUsername("admin");
-            admin.setName("Admin User");
-           // admin.setPasswordHash(passwordEncoder.encode("adminpass"));
+            admin.setUsername("admin.lowes");
+            admin.setName("Ravi Shankar");
             admin.setPassword(passwordEncoder.encode("adminpass"));
-
             admin.setRole(UserRole.ADMIN);
-            admin.setEmail("sahanagnpari@gmail.com");
+            admin.setEmail("ravi.shankar@lowes.in");
             admin.setStore(store1);
             userRepository.save(admin);
 
             UserEntity manager1 = new UserEntity();
-            manager1.setUsername("manager1");
-            manager1.setName("Manager One");
+            manager1.setUsername("manager.bangalore");
+            manager1.setName("Ananya Reddy");
             manager1.setPassword(passwordEncoder.encode("manager1pass"));
             manager1.setRole(UserRole.MANAGER);
-            manager1.setEmail("manager1@store.com");
+            manager1.setEmail("ananya.reddy@lowes.in");
             manager1.setStore(store1);
             userRepository.save(manager1);
 
             UserEntity manager2 = new UserEntity();
-            manager2.setUsername("manager2");
-            manager2.setName("Manager Two");
+            manager2.setUsername("manager.mumbai");
+            manager2.setName("Vikram Shah");
             manager2.setPassword(passwordEncoder.encode("manager2pass"));
             manager2.setRole(UserRole.MANAGER);
-            manager2.setEmail("manager2@store.com");
+            manager2.setEmail("vikram.shah@lowes.in");
             manager2.setStore(store2);
             userRepository.save(manager2);
 
             UserEntity analyst = new UserEntity();
-            analyst.setUsername("analyst1");
-            analyst.setName("Analyst One");
+            analyst.setUsername("analyst.chennai");
+            analyst.setName("Divya Suresh");
             analyst.setPassword(passwordEncoder.encode("analystpass"));
             analyst.setRole(UserRole.ANALYST);
-            analyst.setEmail("analyst1@store.com");
-            analyst.setStore(store1);
+            analyst.setEmail("divya.suresh@lowes.in");
+            analyst.setStore(store3);
             userRepository.save(analyst);
 
             UserEntity associate = new UserEntity();
-            associate.setUsername("associate1");
-            associate.setName("Associate One");
+            associate.setUsername("associate.mumbai");
+            associate.setName("Kunal Mehta");
             associate.setPassword(passwordEncoder.encode("associatepass"));
             associate.setRole(UserRole.ASSOCIATE);
-            associate.setEmail("associate1@store.com");
+            associate.setEmail("kunal.mehta@lowes.in");
             associate.setStore(store2);
             userRepository.save(associate);
 
             // Create products
-            ProductEntity productA = new ProductEntity();
-            productA.setName("ProductA");
-            productA.setSku("SKU-PA-001");
-            productA.setCategory(ProductCategory.FOOD);
-            productA.setDescription("Sample Product A");
-            productRepository.save(productA);
+            ProductEntity product1 = new ProductEntity();
+            product1.setName("Power Drill");
+            product1.setSku("PD-2023-IND");
+            product1.setCategory(ProductCategory.ELECTRONICS);
+            product1.setDescription("Cordless Power Drill - 20V");
+            productRepository.save(product1);
 
-            ProductEntity productB = new ProductEntity();
-            productB.setName("ProductB");
-            productB.setSku("SKU-PB-002");
-            productB.setCategory(ProductCategory.ELECTRONICS);
-            productB.setDescription("Sample Product B");
-            productRepository.save(productB);
+            ProductEntity product2 = new ProductEntity();
+            product2.setName("LED Bulb");
+            product2.setSku("LED-9W-B22");
+            product2.setCategory(ProductCategory.ELECTRONICS);
+            product2.setDescription("9W B22 Cool White LED Bulb");
+            productRepository.save(product2);
 
-            ProductEntity productC = new ProductEntity();
-            productC.setName("ProductC");
-            productC.setSku("SKU-PC-003");
-            productC.setCategory(ProductCategory.CLOTHING);
-            productC.setDescription("Sample Product C");
-            productRepository.save(productB);
+            ProductEntity product3 = new ProductEntity();
+            product3.setName("Cement Bag");
+            product3.setSku("CEM-BAG-50KG");
+            product3.setCategory(ProductCategory.HOME_GOODS);
+            product3.setDescription("50KG OPC 43 Grade Cement Bag");
+            productRepository.save(product3);
 
             // Create inventory
             InventoryEntity inv1 = new InventoryEntity();
             inv1.setStore(store1);
-            inv1.setProduct(productA);
-            inv1.setQuantity(100);
-            inv1.setMinThreshold(10);
+            inv1.setProduct(product1);
+            inv1.setQuantity(35);
+
+            inv1.setMinThreshold(5);
             inventoryRepository.save(inv1);
 
             InventoryEntity inv2 = new InventoryEntity();
             inv2.setStore(store2);
-            inv2.setProduct(productA);
-            inv2.setQuantity(50);
+            inv2.setProduct(product1);
+            inv2.setQuantity(20);
             inv2.setMinThreshold(5);
             inventoryRepository.save(inv2);
 
             InventoryEntity inv3 = new InventoryEntity();
             inv3.setStore(store1);
-            inv3.setProduct(productB);
-            inv3.setQuantity(2);
-            inv3.setMinThreshold(3);
+            inv3.setProduct(product2);
+            inv3.setQuantity(100);
+            inv3.setMinThreshold(20);
             inventoryRepository.save(inv3);
 
+            InventoryEntity inv4 = new InventoryEntity();
+            inv4.setStore(store3);
+            inv4.setProduct(product3);
+            inv4.setQuantity(60);
+            inv4.setMinThreshold(10);
+            inventoryRepository.save(inv4);
 
-            // Create inter-store transfer (store1 requests 10 units of ProductA from store2)
-            InterStoreTransferEntity transfer = new InterStoreTransferEntity();
-            transfer.setProduct(productA);
-            transfer.setFromStore(store1);                // store1 is requesting
-            transfer.setToStore(store2);                  // store2 is expected to fulfill
-            transfer.setQuantity(10);
-            transfer.setStatus(TransferStatus.REQUESTED); // waiting for approval
-            transfer.setRequestedBy(manager1);            // manager of store1 (requester)
-            // No approvedBy at this point
-            interStoreTransferRepository.save(transfer);
+            // Create stock adjustment (example only)
 
-
-            // Create stock adjustment
             StockAdjustmentEntity adjustment = new StockAdjustmentEntity();
             adjustment.setInventory(inv1);
             adjustment.setUser(manager1);
             adjustment.setChangeType(ChangeType.ADD);
-            adjustment.setQuantityChange(20);
-            adjustment.setReason("Restock");
+            adjustment.setQuantityChange(10);
+            adjustment.setReason("Restocking Power Drills");
+
             stockAdjustmentRepository.save(adjustment);
 
-            // Create notification
+            // Notification
             NotificationEntity notification = new NotificationEntity();
             notification.setStore(store1);
-            notification.setProduct(productA);
+            notification.setProduct(product2);
+
             notification.setType(NotificationEntity.NotificationType.LOW_STOCK);
             notification.setIsRead(false);
             notificationRepository.save(notification);
 
-            // Create change log
-            ChangeLogEntity changeLog = new ChangeLogEntity();
-            changeLog.setTableName("inventory");
-            changeLog.setRecordId(inv1.getInventoryId());
-            changeLog.setUser(manager1);
-            changeLog.setChangeSummary("Added 20 units to inventory for ProductA in Store 1");
-            changeLogRepository.save(changeLog);
+            System.out.println("Seeded  data for users, products, stores, and inventory.");
 
-            System.out.println("✅ Seeded all major tables: stores, users, products, inventory, transfer, adjustment, notification, changelog.");
         }
     }
+
 }
+
